@@ -12,14 +12,14 @@ export const UserRegistration = () => {
     username: "",
     email: "",
     mobile: "",
-    isAccepted: "",
+    isAccepted: false,
   });
   const [errTxt, setErrTxt] = useState({
     name: "",
     username: "",
     email: "",
     mobile: "",
-    isAccepted: false,
+    isAccepted: "",
   });
   const handleData = (val) => {
     setValues((data) => ({ ...data, [val.name]: val.value }));
@@ -66,23 +66,24 @@ export const UserRegistration = () => {
     } else {
       errors.mobile = "";
     }
-    if (!values.isAccepted) {
+    if (values.isAccepted === false) {
       errors.isAccepted = "Please accept the terms and conditions";
     } else {
       errors.isAccepted = "";
     }
-    setErrTxt(errors);
+    setErrTxt({ ...errors });
     if (
-      (errTxt.name === "",
-      errTxt.isAccepted === "",
-      errTxt.mobile === "",
-      errTxt.username === "",
-      errTxt.email === "")
+      errors.name === "" &&
+      errors.isAccepted === "" &&
+      errors.mobile === "" &&
+      errors.username === "" &&
+      errors.email === ""
     ) {
       StoreData("userData", values);
       navigate("/genere");
     }
   };
+  console.log(values.email.trim().length === 0);
   return (
     <div
       style={{
